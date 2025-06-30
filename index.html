@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Видеочат с управляемым размытием</title>
+  <title>Видеочат с размытием</title>
   <style>
     video {
       width: 300px;
@@ -37,15 +37,22 @@
     navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
       originalStream = stream;
       myVideo.srcObject = stream;
-      startPeers(stream);
-    });
 
-    function startPeers(stream) {
+      // Получаем список уже подключенных
+      socket.on("all-users", (users) => {
+        users.forEach(id => {
+          const peer = new SimplePeer({ initiator: true, stream });
+          setupPeerEvents(peer, id);
+          peers[id] = peer;
+        });
+      });
+
       socket.emit("join");
 
       socket.on("user-joined", id => {
         const peer = new SimplePeer({ initiator: true, stream });
         setupPeerEvents(peer, id);
+        peers[id] = peer;
       });
 
       socket.on("signal", ({ from, signal }) => {
@@ -63,7 +70,7 @@
           delete peers[id];
         }
       });
-    }
+    });
 
     function setupPeerEvents(peer, id) {
       peer.on('signal', data => {
