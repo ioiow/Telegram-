@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Видеочат с управляемым размытием</title>
+  <style>
+    video {
+      width: 300px;
+      margin: 10px;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h2>Ты</h2>
+  <video id="myVideo" autoplay muted></video>
+
+  <h3>Управление</h3>
+  <input type="password" id="pass" placeholder="Введите пароль">
+  <button onclick="toggleBlur()">Включить/выключить размытие</button>
+  <p id="status"></p>
+
+  <h2>Остальные участники</h2>
+  <div id="peers"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/simple-peer@9/simplepeer.min.js"></script>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script>
+    const socket = io();
+    const myVideo = document.getElementById('myVideo');
+    const peersDiv = document.getElementById('peers');
+    const peers = {};
+    let originalStream;
+    let blurMode = false;
+    let blurCanvas, blurContext, blurVideoStream;
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+      originalStream = stream;
+      myVideo.srcObject = stream;
+      startPeers(stream);
+    });
+
+    function startPeers(stream) {
+      socket.emit("join");
+
+      socket.on("user-joined", id => {
+        const peer = new SimplePeer({ initiator: true, stream });
+        setupPeerEvents(peer, id);
+      });
+
+      socket.on("signal", ({ from, signal }) => {
+        if (!peers[from]) {
+          const peer = new SimplePeer({ initiator: false, stream: originalStream });
+          setupPeerEvents(peer, from);
+          peers[from] = peer;
+        }
+        peers[from].signal(signal);
+      });
+
+      socket.on("user-left", id => {
+        if (peers[id]) {
+          peers[id].destroy();
+          delete peers[id];
+        }
+      });
+    }
+
+    function setupPeerEvents(peer, id) {
+      peer.on('signal', data => {
+        socket.emit("signal", { to: id, signal: data });
+      });
+      peer.on('stream', remoteStream => {
+        const vid = document.createElement('video');
+        vid.srcObject = remoteStream;
+        vid.autoplay = true;
+        peersDiv.appendChild(vid);
+      });
+      peers[id] = peer;
+    }
+
+    function toggleBlur() {
+      const password = document.getElementById('pass').value;
+      if (password !== "123*") {
+        alert("Неверный пароль");
+        return;
+      }
+
+      blurMode = !blurMode;
+      document.getElementById("status").textContent = blurMode ? "Размытие включено" : "Размытие выключено";
+
+      if (blurMode) {
+        startBlurStream();
+      } else {
+        stopBlurStream();
+      }
+    }
+
+    function startBlurStream() {
+      const videoTrack = originalStream.getVideoTracks()[0];
+      const settings = videoTrack.getSettings();
+      const width = settings.width || 640;
+      const height = settings.height || 480;
+
+      blurCanvas = document.createElement('canvas');
+      blurCanvas.width = width;
+      blurCanvas.height = height;
+      blurContext = blurCanvas.getContext('2d');
+
+      function drawFrame() {
+        blurContext.filter = 'blur(10px)';
+        blurContext.drawImage(myVideo, 0, 0, width, height);
+        requestAnimationFrame(drawFrame);
+      }
+      drawFrame();
+
+      blurVideoStream = blurCanvas.captureStream(25);
+      replaceVideoTrack(blurVideoStream.getVideoTracks()[0]);
+    }
+
+    function stopBlurStream() {
+      replaceVideoTrack(originalStream.getVideoTracks()[0]);
+    }
+
+    function replaceVideoTrack(newTrack) {
+      for (const id in peers) {
+        const sender = peers[id]._pc.getSenders().find(s => s.track.kind === 'video');
+        if (sender) sender.replaceTrack(newTrack);
+      }
+    }
+  </script>
+</body>
+</html>
