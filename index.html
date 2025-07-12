@@ -331,7 +331,13 @@
     <div id="comment-list"></div>
   </div>
 
-  <footer>&copy; 2025 Gamer Hub. Все права защищены.</footer>
+  <footer style="display: flex; justify-content: center; align-items: center; gap: 8px; color: #5f7a93; background: #18232e; font-size: 0.9rem; letter-spacing: 0.06em; border-top: 1px solid #4DD0E1; padding: 20px;">
+  <span>&copy; 2025 Gamer Hub. Все права защищены.</span>
+  <span style="display: flex; align-items: center; gap: 6px; color: #4DD0E1; font-weight: 700; font-family: 'Montserrat', sans-serif;">
+    <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18" fill="#4DD0E1"><path d="M12 6a9.77 9.77 0 0 1 8.44 5A9.77 9.77 0 0 1 12 16a9.77 9.77 0 0 1-8.44-5A9.77 9.77 0 0 1 12 6Zm0 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-8C7 5 2.73 7.61 1 12c1.73 4.39 6 7 11 7s9.27-2.61 11-7c-1.73-4.39-6-7-11-7Z"/></svg>
+    <span id="view-count">Загрузка...</span>
+  </span>
+</footer>
   
   <div style="text-align:center; margin-bottom: 24px;">
     <a href="https://t.me/Proverkuaa_bot" target="_blank" rel="noopener noreferrer" 
@@ -403,5 +409,44 @@
   setTimeout(addComment, 500);
   setTimeout(addComment, 1000);
 </script>
+<div id="view-count" style="text-align:center; margin-bottom: 24px; color:#4DD0E1; font-weight: 700; font-family: 'Montserrat', sans-serif;">
+ 
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
+  import { getDatabase, ref, runTransaction, get } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyACSZa4mCcpZS1sab3Z0PbaISJhycECLwk",
+    authDomain: "maps-cc716.firebaseapp.com",
+    databaseURL: "https://maps-cc716-default-rtdb.firebaseio.com",
+    projectId: "maps-cc716",
+    storageBucket: "maps-cc716.firebasestorage.app",
+    messagingSenderId: "982948792830",
+    appId: "1:982948792830:web:66764859c95dabf9a7d8af"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+  const viewCountRef = ref(database, 'viewCount');
+
+  async function incrementViewCount() {
+    await runTransaction(viewCountRef, (currentCount) => {
+      return (currentCount || 0) + 1;
+    });
+  }
+
+  async function displayViewCount() {
+    const snapshot = await get(viewCountRef);
+    const count = snapshot.exists() ? snapshot.val() : 0;
+    document.getElementById('view-count').textContent = count;
+  }
+
+  window.addEventListener('load', async () => {
+    await incrementViewCount();
+    await displayViewCount();
+  });
+</script>
+
 </body>
 </html>
