@@ -1,139 +1,407 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Видеочат с размытием</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Gamer Hub — Магазин</title>
   <style>
-    video {
-      width: 300px;
-      margin: 10px;
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
     }
-    .hidden { display: none; }
+    body {
+      background: #121921;
+      color: #e1e8f0;
+      font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    #preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: #121921;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      font-size: 30px;
+      color: #4DD0E1;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      animation: pulse 1.5s infinite ease-in-out;
+      font-family: 'Montserrat', sans-serif;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      background: linear-gradient(135deg, #1f2a38, #284358);
+      box-shadow: 0 3px 20px rgba(77, 208, 225, 0.5);
+      position: relative;
+      border-bottom: 2px solid #4DD0E1;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #4DD0E1;
+      letter-spacing: 0.14em;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 8px rgba(77, 208, 225, 0.6);
+    }
+    header p {
+      font-size: 1.15rem;
+      color: #b0c7d8;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-shadow: 0 1px 4px #192a3c;
+    }
+
+    #login-button {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      background: #4DD0E1;
+      color: #121921;
+      font-weight: 700;
+      border: none;
+      border-radius: 16px;
+      padding: 12px 24px;
+      cursor: pointer;
+      box-shadow: 0 0 12px #4DD0E1CC;
+      transition: background 0.25s ease, box-shadow 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      z-index: 10;
+    }
+    #login-button:hover {
+      background: #3ab4cc;
+      box-shadow: 0 0 24px #3ab4ccff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 28px;
+      padding: 50px 24px;
+      max-width: 1200px;
+      margin: 0 auto 70px;
+    }
+    .card {
+      background: #22313f;
+      border-radius: 20px;
+      box-shadow: 0 8px 15px rgba(77, 208, 225, 0.15);
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #3a5068;
+    }
+    .card:hover {
+      transform: translateY(-10px) scale(1.07);
+      box-shadow: 0 15px 30px rgba(77, 208, 225, 0.6);
+      border-color: #4DD0E1;
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: contain;
+      background: #18232e;
+      filter: drop-shadow(0 0 8px #4DD0E1);
+      padding: 12px;
+    }
+    .card-body {
+      padding: 24px 20px;
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-body h3 {
+      color: #4DD0E1;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+      text-shadow: 0 0 8px rgba(77, 208, 225, 0.6);
+    }
+    .card-body p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #a9cbd9;
+    }
+    .card-body a.button {
+      display: inline-block;
+      padding: 14px 26px;
+      background: #4DD0E1;
+      color: #121921;
+      font-weight: 700;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #4DD0E1CC;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+    }
+    .card-body a.button:hover {
+      background: #3ab4cc;
+      box-shadow: 0 0 30px #3ab4ccff;
+    }
+
+    .mega-offer {
+      grid-column: span 4;
+      border: 3px solid #4DD0E1;
+      box-shadow: 0 0 30px #4DD0E1FF;
+      background: #1b2a37;
+    }
+    .mega-offer h3, .mega-offer p {
+      color: #4DD0E1 !important;
+      text-shadow: 0 0 12px #4DD0E1FF;
+    }
+    .mega-offer p span {
+      text-decoration: line-through;
+      color: #7a8ca1;
+      margin-left: 10px;
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #5f7a93;
+      background: #18232e;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      border-top: 1px solid #4DD0E1;
+    }
+
+    .comment-box {
+      background: rgba(25, 40, 55, 0.95);
+      padding: 28px 32px;
+      border-radius: 18px;
+      max-width: 720px;
+      margin: 0 auto 60px;
+      box-shadow: 0 0 28px #4DD0E199;
+      max-height: 320px;
+      overflow-y: auto;
+      font-size: 1.05rem;
+      color: #d1e4f0;
+    }
+    .comment-box h2 {
+      text-align: center;
+      color: #4DD0E1;
+      margin-bottom: 28px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-shadow: 0 0 8px #4DD0E1AA;
+    }
+    .comment {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #3a5068;
+      padding-bottom: 12px;
+      opacity: 0;
+      animation: fadeIn 0.7s forwards;
+      font-weight: 500;
+    }
+    @keyframes fadeIn {
+      to {opacity: 1;}
+    }
+    .comment strong {
+      color: #4DD0E1;
+      font-weight: 700;
+    }
+    .comment time {
+      display: block;
+      font-size: 12px;
+      color: #7a8ca1;
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    @media(max-width:1024px) {
+      .mega-offer {
+        grid-column: span 2;
+      }
+    }
+    @media(max-width:600px) {
+      .grid {
+        grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+        padding: 30px 15px;
+        gap: 20px;
+      }
+      .card img {
+        height: 130px;
+      }
+      header h1 {
+        font-size: 2.6rem;
+      }
+      header p {
+        font-size: 1.1rem;
+      }
+      .card-body h3 {
+        font-size: 1.2rem;
+      }
+      .card-body p {
+        font-size: 1.1rem;
+      }
+      .card-body a.button {
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
+      .comment-box {
+        max-width: 90vw;
+        max-height: 240px;
+        padding: 22px 24px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h2>Ты</h2>
-  <video id="myVideo" autoplay muted></video>
 
-  <h3>Управление</h3>
-  <input type="password" id="pass" placeholder="Введите пароль">
-  <button onclick="toggleBlur()">Включить/выключить размытие</button>
-  <p id="status"></p>
+  <div id="preloader">Загрузка...</div>
 
-  <h2>Остальные участники</h2>
-  <div id="peers"></div>
+  <header>
+    <h1>⚡ Магазин Gamer Hub ⚡</h1>
+    <p>🔥 Покупай Голду и донать в Standoff 2! 🔥</p>
+  </header>
 
-  <script src="https://cdn.jsdelivr.net/npm/simple-peer@9/simplepeer.min.js"></script>
-  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <div class="grid">
+    <div class="card">
+      <img src="https://png.klev.club/uploads/posts/2024-04/png-klev-club-39f9-p-golda-standoff-2-png-1.png" alt="G-100" />
+      <div class="card-body">
+        <h3>G-100</h3>
+        <p>1.32€</p>
+        <a href="http://t.me/send?start=IVdXuDC9OFtX" target="_blank" class="button" rel="noopener noreferrer">Купить</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://png.klev.club/uploads/posts/2024-04/png-klev-club-39f9-p-golda-standoff-2-png-1.png" alt="G-500" />
+      <div class="card-body">
+        <h3>G-500</h3>
+        <p>4.66€</p>
+        <a href="http://t.me/send?start=IVd9ReAo3kr4" target="_blank" class="button" rel="noopener noreferrer">Купить</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://png.klev.club/uploads/posts/2024-04/png-klev-club-39f9-p-golda-standoff-2-png-1.png" alt="G-1000" />
+      <div class="card-body">
+        <h3>G-1000</h3>
+        <p>8.32€</p>
+        <a href="http://t.me/send?start=IVjNhSWYXDbW" target="_blank" class="button" rel="noopener noreferrer">Купить</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://png.klev.club/uploads/posts/2024-04/png-klev-club-39f9-p-golda-standoff-2-png-1.png" alt="G-2000" />
+      <div class="card-body">
+        <h3>G-2000</h3>
+        <p>15.54€</p>
+        <a href="http://t.me/send?start=IVLrwyUPIhuc" target="_blank" class="button" rel="noopener noreferrer">Купить</a>
+      </div>
+    </div>
+
+    <div class="card mega-offer">
+      <img src="https://png.klev.club/uploads/posts/2024-04/png-klev-club-39f9-p-golda-standoff-2-png-1.png" alt="G-5000" />
+      <div class="card-body">
+        <h3>G-5000 (МЕГА-ПАК)</h3>
+        <p>🎁 22€ <span>27€</span></p>
+        <a href="http://t.me/send?start=IVxUHhrE9BOD" target="_blank" class="button" rel="noopener noreferrer">Купить и сэкономить</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="comment-box">
+    <h2>Отзывы</h2>
+    <div id="comment-list"></div>
+  </div>
+
+  <footer>&copy; 2025 Gamer Hub. Все права защищены.</footer>
+  
+  <div style="text-align:center; margin-bottom: 24px;">
+    <a href="https://t.me/Proverkuaa_bot" target="_blank" rel="noopener noreferrer" 
+       style="
+         display: inline-block;
+         padding: 14px 28px;
+         font-size: 1rem;
+         font-family: 'Montserrat', sans-serif;
+         font-weight: 700;
+         text-transform: uppercase;
+         color: #121921;
+         background: #4DD0E1;
+         border-radius: 16px;
+         text-decoration: none;
+         box-shadow: 0 0 15px #4DD0E1CC;
+         transition: background 0.3s ease, box-shadow 0.3s ease;
+       "
+       onmouseover="this.style.background='#3ab4cc'; this.style.boxShadow='0 0 30px #3ab4ccff';"
+       onmouseout="this.style.background='#4DD0E1'; this.style.boxShadow='0 0 15px #4DD0E1CC';"
+    >
+      Поддержка
+    </a>
+  </div>
+
   <script>
-    const socket = io();
-    const myVideo = document.getElementById('myVideo');
-    const peersDiv = document.getElementById('peers');
-    const peers = {};
-    let originalStream;
-    let blurMode = false;
-    let blurCanvas, blurContext, blurVideoStream;
-
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
-      originalStream = stream;
-      myVideo.srcObject = stream;
-
-      // Получаем список уже подключенных
-      socket.on("all-users", (users) => {
-        users.forEach(id => {
-          const peer = new SimplePeer({ initiator: true, stream });
-          setupPeerEvents(peer, id);
-          peers[id] = peer;
-        });
-      });
-
-      socket.emit("join");
-
-      socket.on("user-joined", id => {
-        const peer = new SimplePeer({ initiator: true, stream });
-        setupPeerEvents(peer, id);
-        peers[id] = peer;
-      });
-
-      socket.on("signal", ({ from, signal }) => {
-        if (!peers[from]) {
-          const peer = new SimplePeer({ initiator: false, stream: originalStream });
-          setupPeerEvents(peer, from);
-          peers[from] = peer;
-        }
-        peers[from].signal(signal);
-      });
-
-      socket.on("user-left", id => {
-        if (peers[id]) {
-          peers[id].destroy();
-          delete peers[id];
-        }
-      });
+    // Прелоадер: скрыть после загрузки страницы
+    window.addEventListener('load', function () {
+      const preloader = document.getElementById('preloader');
+      if (preloader) preloader.style.display = 'none';
     });
-
-    function setupPeerEvents(peer, id) {
-      peer.on('signal', data => {
-        socket.emit("signal", { to: id, signal: data });
-      });
-      peer.on('stream', remoteStream => {
-        const vid = document.createElement('video');
-        vid.srcObject = remoteStream;
-        vid.autoplay = true;
-        peersDiv.appendChild(vid);
-      });
-      peers[id] = peer;
-    }
-
-    function toggleBlur() {
-      const password = document.getElementById('pass').value;
-      if (password !== "123*") {
-        alert("Неверный пароль");
-        return;
-      }
-
-      blurMode = !blurMode;
-      document.getElementById("status").textContent = blurMode ? "Размытие включено" : "Размытие выключено";
-
-      if (blurMode) {
-        startBlurStream();
-      } else {
-        stopBlurStream();
-      }
-    }
-
-    function startBlurStream() {
-      const videoTrack = originalStream.getVideoTracks()[0];
-      const settings = videoTrack.getSettings();
-      const width = settings.width || 640;
-      const height = settings.height || 480;
-
-      blurCanvas = document.createElement('canvas');
-      blurCanvas.width = width;
-      blurCanvas.height = height;
-      blurContext = blurCanvas.getContext('2d');
-
-      function drawFrame() {
-        blurContext.filter = 'blur(10px)';
-        blurContext.drawImage(myVideo, 0, 0, width, height);
-        requestAnimationFrame(drawFrame);
-      }
-      drawFrame();
-
-      blurVideoStream = blurCanvas.captureStream(25);
-      replaceVideoTrack(blurVideoStream.getVideoTracks()[0]);
-    }
-
-    function stopBlurStream() {
-      replaceVideoTrack(originalStream.getVideoTracks()[0]);
-    }
-
-    function replaceVideoTrack(newTrack) {
-      for (const id in peers) {
-        const sender = peers[id]._pc.getSenders().find(s => s.track.kind === 'video');
-        if (sender) sender.replaceTrack(newTrack);
-      }
-    }
   </script>
+<script>
+  const comments = [
+    { name: "Алексей", text: "Очень классный сайт! Быстро получил голду.", time: "2 минуты назад" },
+    { name: "Марина", text: "Поддержка помогла за минуту. Рекомендую!", time: "5 минут назад" },
+    { name: "Илья", text: "Перевод денег прошел без проблем. Спасибо!", time: "10 минут назад" },
+    { name: "Настя", text: "Все четко, как и обещали.", time: "15 минут назад" },
+    { name: "Денис", text: "Быстро, удобно, безопасно!", time: "20 минут назад" },
+    { name: "Катя", text: "Довольна покупкой. Все супер!", time: "25 минут назад" },
+    { name: "Егор", text: "Сайт 🔥 Голда пришла быстро!", time: "30 минут назад" },
+    { name: "Анна", text: "Крутой магазин! Уже второй раз покупаю.", time: "40 минут назад" },
+    { name: "Сергей", text: "Очень удобный интерфейс и быстрый сервис.", time: "50 минут назад" },
+    { name: "Ольга", text: "Никогда не думала, что донатить так просто.", time: "1 час назад" }
+  ];
+
+  const commentList = document.getElementById("comment-list");
+
+  let index = 0;
+
+  function addComment() {
+    const comment = comments[index % comments.length];
+    const div = document.createElement("div");
+    div.className = "comment";
+    div.innerHTML = `<strong>${comment.name}</strong>: ${comment.text}<time>${comment.time}</time>`;
+    commentList.appendChild(div);
+    commentList.scrollTop = commentList.scrollHeight;
+
+    index++;
+    if (index > comments.length) {
+      commentList.removeChild(commentList.firstChild); // удаляет старые, чтобы не переполнялся
+    }
+  }
+
+  // Добавляем отзывы по 1 каждые 3 секунды
+  setInterval(addComment, 3000);
+
+  // Стартовые 3 отзыва сразу
+  addComment();
+  setTimeout(addComment, 500);
+  setTimeout(addComment, 1000);
+</script>
 </body>
 </html>
