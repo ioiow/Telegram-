@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>Gamer Hub — Магазин</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap');
 
     * {
       margin: 0;
@@ -14,115 +14,120 @@
       user-select: none;
     }
     body {
-      background: #121921;
-      color: #e1e8f0;
-      font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     #preloader {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background: #121921;
+      background: #0f172a;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      font-size: 30px;
-      color: #4DD0E1;
+      font-size: 32px;
+      color: #38bdf8;
       font-weight: 800;
       letter-spacing: 0.15em;
       animation: pulse 1.5s infinite ease-in-out;
-      font-family: 'Montserrat', sans-serif;
     }
     @keyframes pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+      50% { opacity: 0.5; }
     }
 
     header {
       text-align: center;
-      padding: 60px 20px 40px;
-      background: linear-gradient(135deg, #1f2a38, #284358);
-      box-shadow: 0 3px 20px rgba(77, 208, 225, 0.5);
+      padding: 80px 20px 60px;
+      background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
       position: relative;
-      border-bottom: 2px solid #4DD0E1;
+      border-bottom: 4px solid #38bdf8;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
     }
     header h1 {
-      font-size: 3rem;
-      color: #4DD0E1;
-      letter-spacing: 0.14em;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 8px rgba(77, 208, 225, 0.6);
+      font-size: 3.5rem;
+      color: white;
+      letter-spacing: 0.1em;
+      margin-bottom: 15px;
+      text-shadow: 0 4px 20px rgba(56, 189, 248, 0.7);
+      font-weight: 800;
     }
     header p {
-      font-size: 1.15rem;
-      color: #b0c7d8;
-      letter-spacing: 0.08em;
+      font-size: 1.3rem;
+      color: #bae6fd;
+      letter-spacing: 0.05em;
       font-weight: 600;
       text-transform: uppercase;
-      text-shadow: 0 1px 4px #192a3c;
     }
 
     #login-button {
       position: absolute;
-      top: 18px;
-      right: 20px;
-      background: #4DD0E1;
-      color: #121921;
+      top: 25px;
+      right: 25px;
+      background: #38bdf8;
+      color: #0f172a;
       font-weight: 700;
       border: none;
-      border-radius: 16px;
-      padding: 12px 24px;
+      border-radius: 50px;
+      padding: 14px 28px;
       cursor: pointer;
-      box-shadow: 0 0 12px #4DD0E1CC;
-      transition: background 0.25s ease, box-shadow 0.25s ease;
-      font-family: 'Montserrat', sans-serif;
+      box-shadow: 0 0 20px #38bdf8;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
       font-size: 1rem;
       text-transform: uppercase;
       z-index: 10;
     }
     #login-button:hover {
-      background: #3ab4cc;
-      box-shadow: 0 0 24px #3ab4ccff;
+      background: #0ea5e9;
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px #0ea5e9;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap: 28px;
-      padding: 50px 24px;
-      max-width: 1200px;
-      margin: 0 auto 70px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 60px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
     }
     .card {
-      background: #22313f;
+      background: rgba(30, 41, 59, 0.8);
       border-radius: 20px;
-      box-shadow: 0 8px 15px rgba(77, 208, 225, 0.15);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       overflow: hidden;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      border: 1px solid #3a5068;
+      border: 2px solid #334155;
+      backdrop-filter: blur(10px);
     }
     .card:hover {
-      transform: translateY(-10px) scale(1.07);
-      box-shadow: 0 15px 30px rgba(77, 208, 225, 0.6);
-      border-color: #4DD0E1;
+      transform: translateY(-15px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(56, 189, 248, 0.4);
+      border-color: #38bdf8;
     }
     .card img {
       width: 100%;
-      height: 160px;
+      height: 200px;
       object-fit: contain;
-      background: #18232e;
-      filter: drop-shadow(0 0 8px #4DD0E1);
-      padding: 12px;
+      background: #1e293b;
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+    .card:hover img {
+      transform: scale(1.1);
     }
     .card-body {
-      padding: 24px 20px;
+      padding: 30px;
       text-align: center;
       flex-grow: 1;
       display: flex;
@@ -130,145 +135,209 @@
       justify-content: space-between;
     }
     .card-body h3 {
-      color: #4DD0E1;
-      margin-bottom: 12px;
-      font-size: 1.4rem;
-      text-shadow: 0 0 8px rgba(77, 208, 225, 0.6);
+      color: #38bdf8;
+      margin-bottom: 15px;
+      font-size: 1.6rem;
+      font-weight: 700;
     }
     .card-body p {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
+      font-size: 1.4rem;
+      margin-bottom: 25px;
       font-weight: 600;
-      color: #a9cbd9;
+      color: #e2e8f0;
     }
     .card-body a.button {
       display: inline-block;
-      padding: 14px 26px;
-      background: #4DD0E1;
-      color: #121921;
+      padding: 16px 30px;
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      color: white;
       font-weight: 700;
-      border-radius: 16px;
+      border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 15px #4DD0E1CC;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
+      transition: all 0.3s ease;
       text-decoration: none;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       text-transform: uppercase;
+      letter-spacing: 1px;
+      border: none;
     }
     .card-body a.button:hover {
-      background: #3ab4cc;
-      box-shadow: 0 0 30px #3ab4ccff;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.6);
     }
 
     .mega-offer {
-      grid-column: span 4;
-      border: 3px solid #4DD0E1;
-      box-shadow: 0 0 30px #4DD0E1FF;
-      background: #1b2a37;
+      position: relative;
+      border: 3px solid #38bdf8;
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      box-shadow: 0 0 40px rgba(56, 189, 248, 0.7);
+      overflow: hidden;
     }
-    .mega-offer h3, .mega-offer p {
-      color: #4DD0E1 !important;
-      text-shadow: 0 0 12px #4DD0E1FF;
+    .mega-offer::before {
+      content: "🔥 ХИТ ПРОДАЖ";
+      position: absolute;
+      top: 20px;
+      right: -35px;
+      background: #ff4d8d;
+      color: white;
+      padding: 5px 40px;
+      transform: rotate(45deg);
+      font-weight: 800;
+      font-size: 0.9rem;
+      z-index: 1;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    .mega-offer h3 {
+      color: white !important;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+      font-size: 1.8rem !important;
+    }
+    .mega-offer p {
+      color: white !important;
+      font-size: 1.6rem !important;
     }
     .mega-offer p span {
       text-decoration: line-through;
-      color: #7a8ca1;
-      margin-left: 10px;
+      color: #cbd5e1;
+      margin-left: 15px;
       font-weight: 500;
+      font-size: 1.3rem;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      color: #5f7a93;
-      background: #18232e;
-      font-size: 0.9rem;
-      letter-spacing: 0.06em;
-      border-top: 1px solid #4DD0E1;
+      padding: 30px;
+      color: #94a3b8;
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      border-top: 1px solid #334155;
+      backdrop-filter: blur(10px);
     }
 
     .comment-box {
-      background: rgba(25, 40, 55, 0.95);
-      padding: 28px 32px;
-      border-radius: 18px;
-      max-width: 720px;
-      margin: 0 auto 60px;
-      box-shadow: 0 0 28px #4DD0E199;
-      max-height: 320px;
-      overflow-y: auto;
-      font-size: 1.05rem;
-      color: #d1e4f0;
-    }
-    .comment-box h2 {
-      text-align: center;
-      color: #4DD0E1;
-      margin-bottom: 28px;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-shadow: 0 0 8px #4DD0E1AA;
-    }
-    .comment {
-      margin-bottom: 20px;
-      border-bottom: 1px solid #3a5068;
-      padding-bottom: 12px;
-      opacity: 0;
-      animation: fadeIn 0.7s forwards;
-      font-weight: 500;
-    }
-    @keyframes fadeIn {
-      to {opacity: 1;}
-    }
-    .comment strong {
-      color: #4DD0E1;
+  background: rgba(30, 41, 59, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 0.9rem; /* Уменьшенный размер шрифта */
+  color: #e2e8f0;
+  border: 1px solid #334155;
+}
+
+.comment-box h2 {
+  text-align: center;
+  color: #38bdf8;
+  margin-bottom: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 1.2rem; /* Уменьшенный размер заголовка */
+}
+
+.comment {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 10px;
+  font-size: 0.85rem; /* Размер текста комментария */
+}
+
+.comment strong {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.comment time {
+  display: block;
+  font-size: 0.75rem; /* Размер текста времени */
+  color: #94a3b8;
+  margin-top: 5px;
+}
+
+    .support-btn {
+      display: inline-block;
+      padding: 18px 36px;
+      font-size: 1.1rem;
       font-weight: 700;
+      text-transform: uppercase;
+      color: white;
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 5px 20px rgba(56, 189, 248, 0.4);
+      transition: all 0.3s ease;
+      margin: 0 auto 50px;
+      letter-spacing: 1px;
+      border: none;
+      cursor: pointer;
     }
-    .comment time {
-      display: block;
-      font-size: 12px;
-      color: #7a8ca1;
-      margin-top: 6px;
-      font-style: italic;
+    .support-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.6);
     }
 
-    @media(max-width:1024px) {
-      .mega-offer {
-        grid-column: span 2;
+    @media(max-width: 1200px) {
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       }
     }
-    @media(max-width:600px) {
-      .grid {
-        grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
-        padding: 30px 15px;
-        gap: 20px;
-      }
-      .card img {
-        height: 130px;
-      }
+    @media(max-width: 768px) {
       header h1 {
-        font-size: 2.6rem;
+        font-size: 2.8rem;
       }
       header p {
         font-size: 1.1rem;
       }
-      .card-body h3 {
-        font-size: 1.2rem;
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        padding: 40px 5%;
       }
-      .card-body p {
-        font-size: 1.1rem;
+      .card img {
+        height: 160px;
       }
-      .card-body a.button {
-        padding: 12px 20px;
-        font-size: 1rem;
+      .card-body {
+        padding: 25px;
       }
-      .comment-box {
-        max-width: 90vw;
-        max-height: 240px;
-        padding: 22px 24px;
+      .mega-offer::before {
+        right: -40px;
+        font-size: 0.8rem;
       }
     }
-  </style>
+    @media(max-width: 480px) {
+      header {
+        padding: 60px 20px 40px;
+      }
+      header h1 {
+        font-size: 2.2rem;
+      }
+      #login-button {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        top: 15px;
+        right: 15px;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+      .mega-offer {
+        grid-column: span 1;
+      }
+      .comment-box {
+        padding: 25px;
+        margin: 0 20px 60px;
+      }
+      .support-btn {
+        padding: 16px 30px;
+        font-size: 1rem;
+      }
+    }
+</style>
 </head>
 <body>
 
@@ -278,6 +347,100 @@
     <h1>⚡Магазин⚡ Gamer Hub</h1>
     <p>🔥 Покупай Голду и донать в Standoff 2! 🔥</p>
   </header>
+
+<!-- Вставьте этот код после </header> и перед <div class="grid"> -->
+<div class="account-id-section" style="max-width: 800px; margin: 20px auto; padding: 0 20px;">
+  <div id="idInputContainer" style="background: rgba(30, 41, 59, 0.8); border-radius: 10px; padding: 15px; border: 1px solid #38bdf8; display: flex; align-items: center; gap: 10px; transition: all 0.3s ease;">
+    <input 
+      type="text" 
+      id="accountId" 
+      placeholder="Ваш ID в Standoff 2" 
+      style="flex-grow: 1; padding: 10px 15px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: white; font-size: 0.9rem;"
+    >
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <input 
+        type="checkbox" 
+        id="confirmCheckbox" 
+        style="width: 16px; height: 16px;"
+      >
+      <label for="confirmCheckbox" style="color: #e2e8f0; font-size: 0.8rem; white-space: nowrap;">
+        Подтверждаю
+      </label>
+    </div>
+    <button 
+      id="confirmButton" 
+      style="padding: 8px 15px; background: #38bdf8; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: all 0.3s ease;"
+      disabled
+    >
+      OK
+    </button>
+  </div>
+  <div id="idConfirmedMessage" style="display: none; background: rgba(30, 41, 59, 0.8); border-radius: 10px; padding: 8px 15px; border: 1px solid #4ade80; color: #e2e8f0; font-size: 0.9rem; text-align: center;">
+    ID подтверждён. <a href="#" id="changeId" style="color: #38bdf8; text-decoration: none; margin-left: 8px;">Изменить</a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const accountIdInput = document.getElementById('accountId');
+    const confirmCheckbox = document.getElementById('confirmCheckbox');
+    const confirmButton = document.getElementById('confirmButton');
+    const idInputContainer = document.getElementById('idInputContainer');
+    const idConfirmedMessage = document.getElementById('idConfirmedMessage');
+    const changeIdLink = document.getElementById('changeId');
+    
+    // Проверка заполненности поля и чекбокса
+    function checkForm() {
+      if (accountIdInput.value.trim() !== '' && confirmCheckbox.checked) {
+        confirmButton.disabled = false;
+        confirmButton.style.opacity = '1';
+        confirmButton.style.cursor = 'pointer';
+      } else {
+        confirmButton.disabled = true;
+        confirmButton.style.opacity = '0.7';
+        confirmButton.style.cursor = 'not-allowed';
+      }
+    }
+    
+    accountIdInput.addEventListener('input', checkForm);
+    confirmCheckbox.addEventListener('change', checkForm);
+    
+    // Обработка подтверждения
+    confirmButton.addEventListener('click', function() {
+      const accountId = accountIdInput.value.trim();
+      if (/^\d+$/.test(accountId)) {
+        // Сворачиваем блок ввода
+        idInputContainer.style.display = 'none';
+        idConfirmedMessage.style.display = 'block';
+        
+        // Сохраняем ID в localStorage
+        localStorage.setItem('so2_account_id', accountId);
+      } else {
+        alert('Пожалуйста, введите корректный ID (только цифры)!');
+        accountIdInput.focus();
+      }
+    });
+    
+    // Изменить ID
+    changeIdLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      idInputContainer.style.display = 'flex';
+      idConfirmedMessage.style.display = 'none';
+      accountIdInput.focus();
+    });
+    
+    // Проверяем, может ID уже был сохранён
+    const savedId = localStorage.getItem('so2_account_id');
+    if (savedId) {
+      accountIdInput.value = savedId;
+      confirmCheckbox.checked = true;
+      checkForm();
+      idInputContainer.style.display = 'none';
+      idConfirmedMessage.style.display = 'block';
+    }
+  });
+</script>
+
 
   <div class="grid">
     <div class="card">
@@ -331,36 +494,30 @@
     <div id="comment-list"></div>
   </div>
 
-  <footer style="display: flex; justify-content: center; align-items: center; gap: 8px; color: #5f7a93; background: #18232e; font-size: 0.9rem; letter-spacing: 0.06em; border-top: 1px solid #4DD0E1; padding: 20px;">
-  <span>&copy; 2025 Gamer Hub. Все права защищены.</span>
-  <span style="display: flex; align-items: center; gap: 6px; color: #4DD0E1; font-weight: 700; font-family: 'Montserrat', sans-serif;">
-    <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18" fill="#4DD0E1"><path d="M12 6a9.77 9.77 0 0 1 8.44 5A9.77 9.77 0 0 1 12 16a9.77 9.77 0 0 1-8.44-5A9.77 9.77 0 0 1 12 6Zm0 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-8C7 5 2.73 7.61 1 12c1.73 4.39 6 7 11 7s9.27-2.61 11-7c-1.73-4.39-6-7-11-7Z"/></svg>
+  <footer style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px; padding: 30px; color: #94a3b8; background: rgba(15, 23, 42, 0.9); border-top: 1px solid #334155; backdrop-filter: blur(10px);">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <span>&copy; 2025 Gamer Hub. Все права защищены.</span>
+    <span style="width: 5px; height: 5px; background: #38bdf8; border-radius: 50%;"></span>
+    <a href="#" style="color: #38bdf8; text-decoration: none;">Политика конфиденциальности</a>
+  </div>
+  <div style="display: flex; align-items: center; gap: 8px; color: #38bdf8; font-weight: 700;">
+    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20" fill="#38bdf8">
+      <path d="M12 6a9.77 9.77 0 0 1 8.44 5A9.77 9.77 0 0 1 12 16a9.77 9.77 0 0 1-8.44-5A9.77 9.77 0 0 1 12 6Zm0 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-8C7 5 2.73 7.61 1 12c1.73 4.39 6 7 11 7s9.27-2.61 11-7c-1.73-4.39-6-7-11-7Z"/>
+    </svg>
     <span id="view-count">Загрузка...</span>
-  </span>
+  </div>
 </footer>
   
-  <div style="text-align:center; margin-bottom: 24px;">
-    <a href="https://t.me/Proverkuaa_bot" target="_blank" rel="noopener noreferrer" 
-       style="
-         display: inline-block;
-         padding: 14px 28px;
-         font-size: 1rem;
-         font-family: 'Montserrat', sans-serif;
-         font-weight: 700;
-         text-transform: uppercase;
-         color: #121921;
-         background: #4DD0E1;
-         border-radius: 16px;
-         text-decoration: none;
-         box-shadow: 0 0 15px #4DD0E1CC;
-         transition: background 0.3s ease, box-shadow 0.3s ease;
-       "
-       onmouseover="this.style.background='#3ab4cc'; this.style.boxShadow='0 0 30px #3ab4ccff';"
-       onmouseout="this.style.background='#4DD0E1'; this.style.boxShadow='0 0 15px #4DD0E1CC';"
-    >
-      Поддержка
-    </a>
-  </div>
+  <div style="text-align: center; margin: 0 auto 60px; max-width: 1200px; padding: 0 20px;">
+  <a href="https://t.me/Proverkuaa_bot" target="_blank" rel="noopener noreferrer" class="support-btn">
+    <span style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      Техническая поддержка
+    </span>
+  </a>
+</div>
 
   <script>
     // Прелоадер: скрыть после загрузки страницы
